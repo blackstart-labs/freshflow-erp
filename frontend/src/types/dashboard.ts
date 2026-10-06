@@ -53,6 +53,7 @@ export interface StockBatch {
   daysLeftUrgent: boolean;
   status: BatchStatus;
   location: string;
+  image: string;
 }
 
 export interface RestaurantClient {
@@ -62,7 +63,5 @@ export interface RestaurantClient {
   revenue: number;
   change: string;
   isPositive: boolean;
-  logoBg: string;
-  logoTextColor: string;
-  logoInitials: string;
+  logo: string;
 }

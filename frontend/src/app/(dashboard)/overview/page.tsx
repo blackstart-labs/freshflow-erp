@@ -1,14 +1,13 @@
 "use client";
 
 import { Calendar, ChevronDown } from "lucide-react";
-import { MetricCard } from "@/components/dashboard/metric-card";
+import { KpiMetricsSection } from "@/components/dashboard/metric-card";
 import { TemperaturePanel } from "@/components/dashboard/temperature-panel";
 import { InventoryCategoryChart } from "@/components/dashboard/inventory-category-chart";
 import { ExpiryTimeline } from "@/components/dashboard/expiry-timeline";
 import { StockBatchesTable } from "@/components/dashboard/stock-batches-table";
 import { RestaurantClients } from "@/components/dashboard/restaurant-clients";
 import {
-  dashboardMetrics,
   expiryTimeline,
   inventoryCategories,
   restaurantClients,
@@ -47,14 +46,12 @@ export default function OverviewPage() {
       </div>
 
       {/* Row 1: 4 KPI Telemetry Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {dashboardMetrics.map((metric) => (
-          <MetricCard key={metric.id} metric={metric} />
-        ))}
-      </section>
+      <div className="animate-fade-in-up delay-1">
+        <KpiMetricsSection />
+      </div>
 
       {/* Row 2: Cold Storage Temp (40%) | Category Donut (30%) | Expiry Timeline (30%) */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 animate-fade-in-up delay-2">
         <div className="lg:col-span-5">
           <TemperaturePanel zones={temperatureZones} />
         </div>
@@ -67,7 +64,7 @@ export default function OverviewPage() {
       </section>
 
       {/* Row 3: Recent Stock Batches (70%) | Top Restaurant Clients (30%) */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start animate-fade-in-up delay-3">
         <div className="lg:col-span-8">
           <StockBatchesTable batches={stockBatches} />
         </div>

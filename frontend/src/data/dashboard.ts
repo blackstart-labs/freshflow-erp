@@ -15,7 +15,7 @@ export const dashboardMetrics: DashboardMetric[] = [
     change: "↑ 12% vs last week",
     isPositive: true,
     accent: "green",
-    sparkline: [25, 38, 45, 60, 48, 70, 85, 95],
+    sparkline: [6, 9.12, 10.8, 14.4, 11.52, 16.8, 20.4, 22.8],
     icon: "Boxes",
   },
   {
@@ -25,7 +25,7 @@ export const dashboardMetrics: DashboardMetric[] = [
     change: "↑ 4 vs yesterday",
     isPositive: false,
     accent: "red",
-    sparkline: [20, 30, 25, 45, 65, 80, 75, 90],
+    sparkline: [4.8, 7.2, 6, 10.8, 15.6, 19.2, 18, 21.6],
     icon: "TriangleAlert",
   },
   {
@@ -35,7 +35,7 @@ export const dashboardMetrics: DashboardMetric[] = [
     change: "↑ 8.4% vs last week",
     isPositive: true,
     accent: "teal",
-    sparkline: [35, 45, 50, 60, 70, 65, 85, 90],
+    sparkline: [8.4, 10.8, 12, 14.4, 16.8, 15.6, 20.4, 21.6],
     icon: "CircleDollarSign",
   },
   {
@@ -43,9 +43,9 @@ export const dashboardMetrics: DashboardMetric[] = [
     label: "SPOILAGE LOSS",
     value: "৳ 24,320",
     change: "↓ 32% vs last week",
-    isPositive: true, // reduction in loss is positive
+    isPositive: true,
     accent: "slate",
-    sparkline: [80, 70, 60, 55, 40, 35, 30, 25],
+    sparkline: [19.2, 16.8, 14.4, 13.2, 9.6, 8.4, 7.2, 6],
     icon: "Trash2",
   },
 ];
@@ -85,9 +85,9 @@ export const temperatureZones: TemperatureZone[] = [
 
 export const inventoryCategories: CategoryDistribution[] = [
   { category: "Poultry", percentage: 32, count: 137, color: "#065f46" },
-  { category: "Dairy", percentage: 24, count: 103, color: "#0284c7" },
-  { category: "Seafood", percentage: 18, count: 77, color: "#0d9488" },
-  { category: "Vegetables", percentage: 14, count: 59, color: "#16a34a" },
+  { category: "Dairy", percentage: 24, count: 103, color: "#38bdf8" },
+  { category: "Seafood", percentage: 18, count: 77, color: "#0284c7" },
+  { category: "Vegetables", percentage: 14, count: 59, color: "#22c55e" },
   { category: "Beef", percentage: 8, count: 34, color: "#ea580c" },
   { category: "Others", percentage: 4, count: 18, color: "#eab308" },
 ];
@@ -119,6 +119,7 @@ export const stockBatches: StockBatch[] = [
     daysLeftUrgent: true,
     status: "FLASH_SALE",
     location: "Freezer A1",
+    image: "/products/chicken-breast.png",
   },
   {
     id: "2",
@@ -136,6 +137,7 @@ export const stockBatches: StockBatch[] = [
     daysLeftUrgent: false,
     status: "AVAILABLE",
     location: "Chiller B2",
+    image: "/products/mozzarella.png",
   },
   {
     id: "3",
@@ -153,6 +155,7 @@ export const stockBatches: StockBatch[] = [
     daysLeftUrgent: true,
     status: "FLASH_SALE",
     location: "Chiller B1",
+    image: "/products/salmon.png",
   },
   {
     id: "4",
@@ -170,6 +173,7 @@ export const stockBatches: StockBatch[] = [
     daysLeftUrgent: false,
     status: "AVAILABLE",
     location: "Freezer A2",
+    image: "/products/ribeye.png",
   },
   {
     id: "5",
@@ -187,6 +191,7 @@ export const stockBatches: StockBatch[] = [
     daysLeftUrgent: true,
     status: "FLASH_SALE",
     location: "Chiller B3",
+    image: "/products/lettuce.png",
   },
 ];
 
@@ -198,9 +203,7 @@ export const restaurantClients: RestaurantClient[] = [
     revenue: 428320,
     change: "↑ 12%",
     isPositive: true,
-    logoBg: "#b91c1c",
-    logoTextColor: "#ffffff",
-    logoInitials: "PH",
+    logo: "/clients/pizzahut.svg",
   },
   {
     rank: 2,
@@ -209,9 +212,7 @@ export const restaurantClients: RestaurantClient[] = [
     revenue: 286450,
     change: "↑ 8%",
     isPositive: true,
-    logoBg: "#991b1b",
-    logoTextColor: "#ffffff",
-    logoInitials: "KFC",
+    logo: "/clients/kfc.svg",
   },
   {
     rank: 3,
@@ -220,9 +221,7 @@ export const restaurantClients: RestaurantClient[] = [
     revenue: 241200,
     change: "↑ 14%",
     isPositive: true,
-    logoBg: "#1e3a8a",
-    logoTextColor: "#ffffff",
-    logoInitials: "DOM",
+    logo: "/clients/dominos.svg",
   },
   {
     rank: 4,
@@ -231,9 +230,7 @@ export const restaurantClients: RestaurantClient[] = [
     revenue: 198770,
     change: "↑ 6%",
     isPositive: true,
-    logoBg: "#831843",
-    logoTextColor: "#ffffff",
-    logoInitials: "ND",
+    logo: "/clients/nandos.svg",
   },
   {
     rank: 5,
@@ -242,8 +239,6 @@ export const restaurantClients: RestaurantClient[] = [
     revenue: 164320,
     change: "↓ 2%",
     isPositive: false,
-    logoBg: "#c2410c",
-    logoTextColor: "#ffffff",
-    logoInitials: "BK",
+    logo: "/clients/burgerking.svg",
   },
 ];

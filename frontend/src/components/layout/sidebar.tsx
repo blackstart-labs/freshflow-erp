@@ -15,6 +15,7 @@ import {
   Snowflake,
   Trash2,
   Users,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,11 @@ interface NavGroup {
   title: string;
   icon: React.ComponentType<{ size?: number; className?: string }>;
   items: { label: string; href: string }[];
+}
+
+interface SidebarProps {
+  className?: string;
+  onMobileClose?: () => void;
 }
 
 const navGroups: NavGroup[] = [
@@ -71,7 +77,7 @@ const navGroups: NavGroup[] = [
   },
 ];
 
-export function Sidebar() {
+export function Sidebar({ className, onMobileClose }: SidebarProps) {
   const pathname = usePathname();
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
     Inventory: true,
@@ -86,28 +92,44 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[196px] shrink-0 bg-[#063c35] text-emerald-50 flex flex-col justify-between min-h-screen border-r border-[#084b42] select-none">
+    <aside
+      className={cn(
+        "w-[200px] shrink-0 bg-[#063c35] text-emerald-50 flex flex-col justify-between min-h-screen border-r border-[#084b42] select-none",
+        className
+      )}
+    >
       <div>
         {/* Brand Header */}
-        <div className="h-14 px-3.5 flex items-center gap-2.5 border-b border-[#0b4e45]">
-          <div className="size-6 relative shrink-0">
-            <Image
-              src="/logo.png"
-              alt="FreshFlow"
-              width={24}
-              height={24}
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="leading-tight overflow-hidden">
-            <div className="font-bold text-[13px] tracking-tight text-white flex items-center">
-              Fresh<span className="text-[#34d399]">Flow</span>
+        <div className="h-14 px-3.5 flex items-center justify-between border-b border-[#0b4e45]">
+          <Link href="/overview" className="flex items-center gap-2.5 overflow-hidden">
+            <div className="size-6 relative shrink-0 overflow-hidden">
+              <Image
+                src="/logo-transparent.png"
+                alt="FreshFlow"
+                width={80}
+                height={24}
+                className="h-6 w-auto max-w-none object-left object-cover"
+                priority
+              />
             </div>
-            <div className="text-[9.5px] text-emerald-200/60 font-medium tracking-tight truncate">
-              Cold Chain Supply CRM
+            <div className="leading-tight overflow-hidden">
+              <div className="font-bold text-sm tracking-tight text-white flex items-center">
+                Fresh<span className="text-white">Flow</span>
+              </div>
+              <div className="text-[11px] text-emerald-200/80 font-medium tracking-tight truncate">
+                Cold Chain Supply CRM
+              </div>
             </div>
-          </div>
+          </Link>
+          {onMobileClose && (
+            <button
+              onClick={onMobileClose}
+              className="lg:hidden text-emerald-200/80 hover:text-white p-1 rounded-md hover:bg-[#09473e] transition-colors"
+              aria-label="Close sidebar"
+            >
+              <X size={18} />
+            </button>
+          )}
         </div>
 
         {/* Navigation List */}
@@ -116,13 +138,13 @@ export function Sidebar() {
           <Link
             href="/overview"
             className={cn(
-              "flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[12px] font-medium transition-colors",
+              "flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors",
               pathname === "/overview" || pathname === "/"
                 ? "bg-[#0b5349] text-white shadow-xs"
                 : "text-emerald-100/70 hover:bg-[#09473e] hover:text-white"
             )}
           >
-            <LayoutDashboard size={15} className="shrink-0 text-[#34d399]" />
+            <LayoutDashboard size={16} className="shrink-0 text-[#34d399]" />
             <span>Overview</span>
           </Link>
 
@@ -135,16 +157,16 @@ export function Sidebar() {
               <div key={group.title} className="space-y-0.5 pt-0.5">
                 <button
                   onClick={() => toggleGroup(group.title)}
-                  className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[12px] font-medium text-emerald-100/80 hover:bg-[#09473e] hover:text-white transition-colors"
+                  className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-semibold text-emerald-100/80 hover:bg-[#09473e] hover:text-white transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <Icon size={15} className="shrink-0 opacity-80" />
+                    <Icon size={16} className="shrink-0 opacity-80" />
                     <span>{group.title}</span>
                   </div>
                   {isOpen ? (
-                    <ChevronDown size={13} className="opacity-60" />
+                    <ChevronDown size={14} className="opacity-60" />
                   ) : (
-                    <ChevronRight size={13} className="opacity-60" />
+                    <ChevronRight size={14} className="opacity-60" />
                   )}
                 </button>
 
@@ -157,10 +179,10 @@ export function Sidebar() {
                           key={sub.label}
                           href={sub.href}
                           className={cn(
-                            "block px-2 py-1 rounded text-[11px] transition-colors",
+                            "block px-2.5 py-1 rounded text-xs transition-colors",
                             isSubActive
                               ? "bg-[#0d6155] text-white font-medium"
-                              : "text-emerald-200/60 hover:text-white hover:bg-[#09473e]/50"
+                              : "text-emerald-200/70 hover:text-white hover:bg-[#09473e]/50"
                           )}
                         >
                           {sub.label}
@@ -182,15 +204,15 @@ export function Sidebar() {
             <Snowflake size={15} />
           </div>
           <div className="overflow-hidden">
-            <div className="text-[10px] text-emerald-200/70 font-medium leading-none">
+            <div className="text-xs text-emerald-200/80 font-medium leading-none">
               Cold Storage Status
             </div>
-            <div className="font-mono text-sm font-bold text-white tracking-tight mt-0.5 tabular-nums">
+            <div className="font-mono text-sm font-bold text-white tracking-tight mt-1 tabular-nums">
               -18.2°C
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-[#094f45]/60 text-[9.5px] text-emerald-300/80 font-medium">
+        <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-[#094f45]/60 text-xs text-emerald-300 font-medium">
           <span className="size-1.5 rounded-full bg-[#10b981] animate-pulse" />
           <span>All zones stable</span>
         </div>
