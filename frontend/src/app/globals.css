@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --canvas: #f8fafc;
+  --surface: #ffffff;
+  --surface-raised: #f1f5f9;
+  --border: #e2e8f0;
+  --border-subtle: #f0fdf4;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  /* FreshFlow Botanical Brand Palette (from logo.png) */
+  --brand-primary: #059669;
+  --brand-secondary: #0d9488;
+  --brand-vibrant: #16a34a;
+  --brand-dark: #0f172a;
+  --brand-ring: #10b981;
+
+  --thermal-safe: #0d9488;
+  --thermal-breach: #dc2626;
+  --thermal-warn: #d97706;
+
+  --expiry-fresh: #059669;
+  --expiry-warn: #d97706;
+  --expiry-critical: #ef4444;
+  --expiry-expired: #64748b;
+
+  --tier-bronze: #b45309;
+  --tier-silver: #475569;
+  --tier-gold: #d97706;
+  --tier-platinum: #0d9488;
+}
+
+.dark {
+  --canvas: #070c0a;
+  --surface: #0e1512;
+  --surface-raised: #141f1a;
+  --border: #1b2b24;
+  --border-subtle: #141f1a;
+  --text-primary: #f0fdf4;
+  --text-muted: #869f93;
+  --text-faint: #52665c;
+
+  /* FreshFlow Botanical Brand Palette in Dark */
+  --brand-primary: #10b981;
+  --brand-secondary: #14b8a6;
+  --brand-vibrant: #22c55e;
+  --brand-dark: #070c0a;
+  --brand-ring: #34d399;
+
+  --thermal-safe: #2dd4bf;
+  --thermal-breach: #f87171;
+  --thermal-warn: #fbbf24;
+
+  --expiry-fresh: #34d399;
+  --expiry-warn: #fbbf24;
+  --expiry-critical: #f87171;
+  --expiry-expired: #64748b;
+
+  --tier-bronze: #f59e0b;
+  --tier-silver: #94a3b8;
+  --tier-gold: #fbbf24;
+  --tier-platinum: #2dd4bf;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, kbd, samp, pre, .font-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-1 { animation-delay: 50ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 150ms; }
+
