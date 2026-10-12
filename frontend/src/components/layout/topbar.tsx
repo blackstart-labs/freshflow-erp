@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Bell, ChevronDown, Menu, Moon, Search, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface TopbarProps {
   onMenuClick?: () => void;
@@ -51,7 +51,10 @@ export function Topbar({ onMenuClick }: TopbarProps) {
 
         {/* Search Input with ⌘K Badge */}
         <div className="relative flex items-center flex-1">
-          <Search size={15} className="absolute left-2.5 text-slate-400 dark:text-slate-500" />
+          <Search
+            size={15}
+            className="absolute left-2.5 text-slate-400 dark:text-slate-500"
+          />
           <input
             type="text"
             placeholder="Search batches, items, restaurants..."
@@ -69,13 +72,23 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         <button
           onClick={toggleTheme}
           className="size-8 flex items-center justify-center rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-[#141f1a] transition-colors"
-          aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
-          title={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+          aria-label={
+            theme === "light" ? "Switch to dark theme" : "Switch to light theme"
+          }
+          title={
+            theme === "light" ? "Switch to dark theme" : "Switch to light theme"
+          }
         >
           {theme === "light" ? (
-            <Moon size={16} className="text-slate-600 hover:text-slate-900 transition-transform duration-200 hover:-rotate-12" />
+            <Moon
+              size={16}
+              className="text-slate-600 hover:text-slate-900 transition-transform duration-200 hover:-rotate-12"
+            />
           ) : (
-            <Sun size={16} className="text-amber-400 hover:text-amber-300 transition-transform duration-200 hover:rotate-45" />
+            <Sun
+              size={16}
+              className="text-amber-400 hover:text-amber-300 transition-transform duration-200 hover:rotate-45"
+            />
           )}
         </button>
 
@@ -104,7 +117,10 @@ export function Topbar({ onMenuClick }: TopbarProps) {
               Warehouse Manager
             </div>
           </div>
-          <ChevronDown size={14} className="text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 transition-colors ml-0.5" />
+          <ChevronDown
+            size={14}
+            className="text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 transition-colors ml-0.5"
+          />
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface MetricCardProps {
@@ -30,7 +30,7 @@ export function MetricCard({
     <div
       className={cn(
         "relative flex flex-col justify-between overflow-hidden rounded-md border border-slate-200 bg-white p-4 shadow-xs dark:border-[#1e2230] dark:bg-[#0f1117]",
-        className
+        className,
       )}
     >
       <div className={cn("absolute inset-x-0 top-0 h-[2px]", topBarColor)} />

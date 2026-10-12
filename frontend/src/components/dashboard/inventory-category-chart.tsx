@@ -1,13 +1,15 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { CategoryDistribution } from "@/types/dashboard";
+import type { CategoryDistribution } from "@/types/dashboard";
 
 interface InventoryCategoryChartProps {
   categories: CategoryDistribution[];
 }
 
-export function InventoryCategoryChart({ categories }: InventoryCategoryChartProps) {
+export function InventoryCategoryChart({
+  categories,
+}: InventoryCategoryChartProps) {
   const totalBatches = categories.reduce((sum, c) => sum + c.count, 0);
 
   // SVG Donut calculations
@@ -70,7 +72,10 @@ export function InventoryCategoryChart({ categories }: InventoryCategoryChartPro
         {/* Legend List */}
         <div className="flex-1 space-y-2 pr-1">
           {categories.map((cat) => (
-            <div key={cat.category} className="flex items-center justify-between text-xs">
+            <div
+              key={cat.category}
+              className="flex items-center justify-between text-xs"
+            >
               <div className="flex items-center gap-2">
                 <span
                   className="size-2 rounded-full shrink-0"

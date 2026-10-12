@@ -1,12 +1,12 @@
 "use client";
 
 import { Calendar, ChevronDown } from "lucide-react";
-import { KpiMetricsSection } from "@/components/dashboard/metric-card";
-import { TemperaturePanel } from "@/components/dashboard/temperature-panel";
-import { InventoryCategoryChart } from "@/components/dashboard/inventory-category-chart";
 import { ExpiryTimeline } from "@/components/dashboard/expiry-timeline";
-import { StockBatchesTable } from "@/components/dashboard/stock-batches-table";
+import { InventoryCategoryChart } from "@/components/dashboard/inventory-category-chart";
+import { KpiMetricsSection } from "@/components/dashboard/metric-card";
 import { RestaurantClients } from "@/components/dashboard/restaurant-clients";
+import { StockBatchesTable } from "@/components/dashboard/stock-batches-table";
+import { TemperaturePanel } from "@/components/dashboard/temperature-panel";
 import {
   expiryTimeline,
   inventoryCategories,

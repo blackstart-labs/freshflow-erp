@@ -1,10 +1,17 @@
 "use client";
 
+import {
+  ArrowUpRight,
+  Check,
+  Copy,
+  Filter,
+  MoreHorizontal,
+  Search,
+} from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { ArrowUpRight, Copy, Check, Filter, MoreHorizontal, Search } from "lucide-react";
-import { StockBatch } from "@/types/dashboard";
 import { cn } from "@/lib/utils";
+import type { StockBatch } from "@/types/dashboard";
 
 interface StockBatchesTableProps {
   batches: StockBatch[];
@@ -63,7 +70,7 @@ export function StockBatchesTable({ batches }: StockBatchesTableProps) {
                   "px-2.5 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap duration-150",
                   activeTab === tab
                     ? "bg-[#063c35] text-white shadow-xs dark:bg-emerald-600 dark:text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200/80 dark:bg-[#121c17] dark:text-slate-300 dark:hover:bg-[#182620]"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200/80 dark:bg-[#121c17] dark:text-slate-300 dark:hover:bg-[#182620]",
                 )}
               >
                 {tab}
@@ -75,7 +82,10 @@ export function StockBatchesTable({ batches }: StockBatchesTableProps) {
         {/* Search, Filter & View All */}
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+            <Search
+              size={14}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
+            />
             <input
               type="text"
               placeholder="Search batch or item..."
@@ -136,7 +146,9 @@ export function StockBatchesTable({ batches }: StockBatchesTableProps) {
                       <div className="flex items-center gap-1 font-mono font-bold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer text-xs">
                         <span>{batch.batchNumber}</span>
                         <button
-                          onClick={() => handleCopy(batch.id, batch.batchNumber)}
+                          onClick={() =>
+                            handleCopy(batch.id, batch.batchNumber)
+                          }
                           className="text-slate-400 hover:text-sky-600 dark:text-slate-500 dark:hover:text-sky-400 transition-colors"
                           title="Copy Batch ID"
                         >
@@ -177,7 +189,10 @@ export function StockBatchesTable({ batches }: StockBatchesTableProps) {
 
                 {/* Quantity */}
                 <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-900 dark:text-white tabular-nums text-sm">
-                  {batch.currentQuantity} <span className="font-normal text-slate-400 dark:text-slate-500 text-xs">{batch.unit}</span>
+                  {batch.currentQuantity}{" "}
+                  <span className="font-normal text-slate-400 dark:text-slate-500 text-xs">
+                    {batch.unit}
+                  </span>
                 </td>
 
                 {/* Expiry Date */}
@@ -205,7 +220,7 @@ export function StockBatchesTable({ batches }: StockBatchesTableProps) {
                       "inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold tracking-wide font-mono",
                       batch.status === "FLASH_SALE"
                         ? "bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-950/50 dark:text-rose-400 dark:border-rose-900/60"
-                        : "bg-emerald-50 text-emerald-700 border border-emerald-200/80 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-900/60"
+                        : "bg-emerald-50 text-emerald-700 border border-emerald-200/80 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-900/60",
                     )}
                   >
                     {batch.status}

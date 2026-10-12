@@ -1,15 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 import {
   BarChart3,
   ChevronDown,
   ChevronRight,
   ClipboardList,
-  Flame,
   LayoutDashboard,
   Package,
   Snowflake,
@@ -17,6 +12,10 @@ import {
   Users,
   X,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface NavGroup {
@@ -95,13 +94,16 @@ export function Sidebar({ className, onMobileClose }: SidebarProps) {
     <aside
       className={cn(
         "w-[200px] shrink-0 bg-[#063c35] text-emerald-50 flex flex-col justify-between min-h-screen border-r border-[#084b42] select-none",
-        className
+        className,
       )}
     >
       <div>
         {/* Brand Header */}
         <div className="h-14 px-3.5 flex items-center justify-between border-b border-[#0b4e45]">
-          <Link href="/overview" className="flex items-center gap-2.5 overflow-hidden">
+          <Link
+            href="/overview"
+            className="flex items-center gap-2.5 overflow-hidden"
+          >
             <div className="size-6 relative shrink-0 overflow-hidden">
               <Image
                 src="/logo-transparent.png"
@@ -141,7 +143,7 @@ export function Sidebar({ className, onMobileClose }: SidebarProps) {
               "flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors",
               pathname === "/overview" || pathname === "/"
                 ? "bg-[#0b5349] text-white shadow-xs"
-                : "text-emerald-100/70 hover:bg-[#09473e] hover:text-white"
+                : "text-emerald-100/70 hover:bg-[#09473e] hover:text-white",
             )}
           >
             <LayoutDashboard size={16} className="shrink-0 text-[#34d399]" />
@@ -182,7 +184,7 @@ export function Sidebar({ className, onMobileClose }: SidebarProps) {
                             "block px-2.5 py-1 rounded text-xs transition-colors",
                             isSubActive
                               ? "bg-[#0d6155] text-white font-medium"
-                              : "text-emerald-200/70 hover:text-white hover:bg-[#09473e]/50"
+                              : "text-emerald-200/70 hover:text-white hover:bg-[#09473e]/50",
                           )}
                         >
                           {sub.label}
