@@ -3,9 +3,10 @@
  * Axios singleton with JWT injection, automatic token rotation on 401, and safe logout handling.
  */
 
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -26,7 +27,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response interceptor: handle 401 refresh rotation
@@ -50,7 +51,9 @@ const processQueue = (error: unknown, token: string | null = null) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (typeof window === "undefined") {
@@ -82,15 +85,21 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await axios.post(`${API_BASE_URL}/auth/token/refresh/`, {
-          refresh: refreshToken,
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/auth/token/refresh/`,
+          {
+            refresh: refreshToken,
+          },
+        );
 
         const newAccessToken = response.data.access;
         localStorage.setItem("freshflow_access_token", newAccessToken);
 
         if (response.data.refresh) {
-          localStorage.setItem("freshflow_refresh_token", response.data.refresh);
+          localStorage.setItem(
+            "freshflow_refresh_token",
+            response.data.refresh,
+          );
         }
 
         processQueue(null, newAccessToken);
@@ -112,7 +121,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

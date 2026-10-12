@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { Sidebar } from "./sidebar";
 import { Topbar } from "./topbar";
 
@@ -35,9 +35,10 @@ export function DashboardShell({ children }: DashboardShellProps) {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <Topbar onMenuClick={() => setMobileMenuOpen(true)} />
-        <main className="flex-1 p-3.5 sm:p-5 overflow-x-hidden">{children}</main>
+        <main className="flex-1 p-3.5 sm:p-5 overflow-x-hidden">
+          {children}
+        </main>
       </div>
     </div>
   );
 }
-

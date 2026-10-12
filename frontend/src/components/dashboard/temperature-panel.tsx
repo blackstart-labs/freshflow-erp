@@ -1,7 +1,7 @@
 "use client";
 
 import { Leaf, Snowflake, Thermometer } from "lucide-react";
-import { TemperatureZone } from "@/types/dashboard";
+import type { TemperatureZone } from "@/types/dashboard";
 
 interface TemperaturePanelProps {
   zones: TemperatureZone[];
@@ -11,11 +11,17 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
   const getZoneIcon = (type: TemperatureZone["type"]) => {
     switch (type) {
       case "freeze":
-        return <Snowflake size={14} className="text-sky-600 dark:text-sky-400" />;
+        return (
+          <Snowflake size={14} className="text-sky-600 dark:text-sky-400" />
+        );
       case "chilled":
-        return <Thermometer size={14} className="text-teal-600 dark:text-teal-400" />;
+        return (
+          <Thermometer size={14} className="text-teal-600 dark:text-teal-400" />
+        );
       case "ambient":
-        return <Leaf size={14} className="text-emerald-600 dark:text-emerald-400" />;
+        return (
+          <Leaf size={14} className="text-emerald-600 dark:text-emerald-400" />
+        );
     }
   };
 
@@ -59,7 +65,7 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
               <div className="flex items-center gap-1.5">
                 <div
                   className={`size-5 rounded-full border flex items-center justify-center shrink-0 ${getZoneIconBg(
-                    zone.type
+                    zone.type,
                   )}`}
                 >
                   {getZoneIcon(zone.type)}
@@ -87,18 +93,33 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
 
             {/* Sparkline Wave */}
             <div className="mt-2 pt-1">
-              <svg className="w-full h-7 overflow-visible" viewBox="0 0 120 28" preserveAspectRatio="none">
+              <svg
+                className="w-full h-7 overflow-visible"
+                viewBox="0 0 120 28"
+                preserveAspectRatio="none"
+              >
                 <defs>
-                  <linearGradient id={`grad-${zone.id}`} x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id={`grad-${zone.id}`}
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
                     <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
                 <path
-                  d={`M 0,${28 - zone.sparkline[0]} ` +
+                  d={
+                    `M 0,${28 - zone.sparkline[0]} ` +
                     zone.sparkline
-                      .map((pt, i) => `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`)
-                      .join(" ")}
+                      .map(
+                        (pt, i) =>
+                          `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`,
+                      )
+                      .join(" ")
+                  }
                   fill="none"
                   stroke="#10b981"
                   strokeWidth="1.75"
@@ -106,11 +127,16 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
                   strokeLinejoin="round"
                 />
                 <path
-                  d={`M 0,${28 - zone.sparkline[0]} ` +
+                  d={
+                    `M 0,${28 - zone.sparkline[0]} ` +
                     zone.sparkline
-                      .map((pt, i) => `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`)
+                      .map(
+                        (pt, i) =>
+                          `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`,
+                      )
                       .join(" ") +
-                    " L 120,28 L 0,28 Z"}
+                    " L 120,28 L 0,28 Z"
+                  }
                   fill={`url(#grad-${zone.id})`}
                 />
               </svg>

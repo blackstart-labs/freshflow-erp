@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 export function Card({
@@ -9,7 +9,7 @@ export function Card({
     <div
       className={cn(
         "rounded-lg border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900",
-        className
+        className,
       )}
       {...props}
     />
@@ -22,7 +22,10 @@ export function CardHeader({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("flex flex-col space-y-1.5 p-5 border-b border-slate-100 dark:border-slate-800/60", className)}
+      className={cn(
+        "flex flex-col space-y-1.5 p-5 border-b border-slate-100 dark:border-slate-800/60",
+        className,
+      )}
       {...props}
     />
   );
@@ -34,7 +37,10 @@ export function CardTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("text-base font-semibold text-slate-900 dark:text-slate-100 leading-none tracking-tight", className)}
+      className={cn(
+        "text-base font-semibold text-slate-900 dark:text-slate-100 leading-none tracking-tight",
+        className,
+      )}
       {...props}
     />
   );
@@ -64,9 +70,6 @@ export function CardFooter({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
-      className={cn("flex items-center p-5 pt-0", className)}
-      {...props}
-    />
+    <div className={cn("flex items-center p-5 pt-0", className)} {...props} />
   );
 }

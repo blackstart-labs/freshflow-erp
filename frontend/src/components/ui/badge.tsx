@@ -1,8 +1,14 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "secondary" | "outline" | "success" | "warning" | "destructive";
+  variant?:
+    | "default"
+    | "secondary"
+    | "outline"
+    | "success"
+    | "warning"
+    | "destructive";
 }
 
 export function Badge({
@@ -30,7 +36,7 @@ export function Badge({
       className={cn(
         "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors select-none",
         variantStyles[variant],
-        className
+        className,
       )}
       {...props}
     />

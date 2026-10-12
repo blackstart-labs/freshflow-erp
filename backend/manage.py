@@ -5,10 +5,13 @@ import sys
 
 # SQLite compatibility shim for environments without built-in _sqlite3
 try:
-    __import__("pysqlite3")
-    sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+    import sqlite3
 except ImportError:
-    pass
+    try:
+        __import__("pysqlite3")
+        sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+    except ImportError:
+        pass
 
 
 def main():

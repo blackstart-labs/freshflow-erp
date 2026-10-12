@@ -11,10 +11,13 @@ import os
 import sys
 
 try:
-    __import__("pysqlite3")
-    sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+    import sqlite3
 except ImportError:
-    pass
+    try:
+        __import__("pysqlite3")
+        sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+    except ImportError:
+        pass
 
 from django.core.wsgi import get_wsgi_application
 

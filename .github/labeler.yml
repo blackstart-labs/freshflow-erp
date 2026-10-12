@@ -1,0 +1,42 @@
+# ==============================================================================
+# FreshFlow ERP — Pull Request Labeler Configuration (actions/labeler@v5)
+# ==============================================================================
+
+"area: frontend":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "frontend/**"
+
+"area: backend":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/**"
+
+"area: database":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/**/migrations/**"
+          - "backend/apps/*/models.py"
+
+"area: auth":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/apps/authentication/**"
+
+"area: ci/cd":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+
+"type: dependencies":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/package.json"
+          - "**/package-lock.json"
+          - "**/requirements.txt"
+
+"type: documentation":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "docs/**"

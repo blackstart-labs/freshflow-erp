@@ -1,6 +1,6 @@
 "use client";
 
-import { ExpiryDay } from "@/types/dashboard";
+import type { ExpiryDay } from "@/types/dashboard";
 
 interface ExpiryTimelineProps {
   data: ExpiryDay[];
@@ -61,7 +61,10 @@ export function ExpiryTimeline({ data }: ExpiryTimelineProps) {
             const barColor = getBarColor(item);
 
             return (
-              <div key={item.date} className="flex-1 flex flex-col items-center group h-full justify-end">
+              <div
+                key={item.date}
+                className="flex-1 flex flex-col items-center group h-full justify-end"
+              >
                 {/* Count tooltip on hover */}
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity mb-0.5 tabular-nums">
                   {item.count}

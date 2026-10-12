@@ -4,8 +4,19 @@ Django 6.1.2 | DRF | SimpleJWT (Blacklisting) | SQLite WAL
 """
 
 import os
+import sys
 from datetime import timedelta
 from pathlib import Path
+
+# SQLite compatibility shim for environments without built-in _sqlite3
+try:
+    import sqlite3
+except ImportError:
+    try:
+        import pysqlite3
+        sys.modules["sqlite3"] = pysqlite3
+    except ImportError:
+        pass
 
 from dotenv import load_dotenv
 
@@ -72,16 +83,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# ─── Database — SQLite with WAL for concurrent reads ────────────────────────
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "OPTIONS": {
-            "timeout": 20,
-        },
+# ─── Database — SQLite or Turso (libSQL) ────────────────────────────────────
+TURSO_DATABASE_URL = os.getenv("TURSO_DATABASE_URL")
+TURSO_AUTH_TOKEN = os.getenv("TURSO_AUTH_TOKEN", "")
+
+if TURSO_DATABASE_URL:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django_libsql",
+            "NAME": TURSO_DATABASE_URL,
+            "AUTH_TOKEN": TURSO_AUTH_TOKEN,
+            "OPTIONS": {
+                "timeout": 20,
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+            "OPTIONS": {
+                "timeout": 20,
+            },
+        }
+    }
 
 from django.db.backends.signals import connection_created
 from django.dispatch import receiver
@@ -91,10 +117,13 @@ from django.dispatch import receiver
 def configure_sqlite_wal(sender, connection, **kwargs):
     """Enforce WAL mode and busy_timeout for concurrent SQLite reads."""
     if connection.vendor == "sqlite":
-        with connection.cursor() as cursor:
-            cursor.execute("PRAGMA journal_mode = WAL;")
-            cursor.execute("PRAGMA busy_timeout = 5000;")
-            cursor.execute("PRAGMA synchronous = NORMAL;")
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("PRAGMA journal_mode = WAL;")
+                cursor.execute("PRAGMA busy_timeout = 5000;")
+                cursor.execute("PRAGMA synchronous = NORMAL;")
+        except Exception:
+            pass
 
 
 # ─── Custom User Model ──────────────────────────────────────────────────────

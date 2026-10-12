@@ -1,4 +1,9 @@
-export type BatchStatus = "AVAILABLE" | "FLASH_SALE" | "DEPLETED" | "SPOILED" | "EXPIRED";
+export type BatchStatus =
+  | "AVAILABLE"
+  | "FLASH_SALE"
+  | "DEPLETED"
+  | "SPOILED"
+  | "EXPIRED";
 
 export type ClientTier = "BRONZE" | "SILVER" | "GOLD" | "PLATINUM";
 

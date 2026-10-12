@@ -3,13 +3,22 @@
  * Strictly mirrors Django backend data models and API response payloads.
  */
 
-export type UserRole = "ADMIN" | "WAREHOUSE_MANAGER" | "SALES_AGENT" | "RESTAURANT_CLIENT";
+export type UserRole =
+  | "ADMIN"
+  | "WAREHOUSE_MANAGER"
+  | "SALES_AGENT"
+  | "RESTAURANT_CLIENT";
 
 export type RestaurantTier = "BRONZE" | "SILVER" | "GOLD" | "PLATINUM";
 
 export type BatchStatus = "AVAILABLE" | "FLASH_SALE" | "EXPIRED" | "DEPLETED";
 
-export type OrderStatus = "PENDING" | "ALLOCATED" | "DISPATCHED" | "DELIVERED" | "CANCELLED";
+export type OrderStatus =
+  | "PENDING"
+  | "ALLOCATED"
+  | "DISPATCHED"
+  | "DELIVERED"
+  | "CANCELLED";
 
 export interface User {
   id: number;
@@ -36,7 +45,13 @@ export interface AuthResponse extends AuthTokens {
 export interface PerishableItem {
   id: number;
   name: string;
-  category: "DAIRY" | "MEAT_POULTRY" | "SEAFOOD" | "PRODUCE" | "FROZEN" | "BEVERAGES";
+  category:
+    | "DAIRY"
+    | "MEAT_POULTRY"
+    | "SEAFOOD"
+    | "PRODUCE"
+    | "FROZEN"
+    | "BEVERAGES";
   required_temp_celsius: number;
   temp_tolerance_celsius: number;
   standard_shelf_life_days: number;
@@ -107,7 +122,11 @@ export interface WastageLog {
   batch_number?: string;
   quantity_lost: number;
   financial_loss: number;
-  reason: "EXPIRED" | "COLD_CHAIN_BREACH" | "PHYSICAL_DAMAGE" | "QUALITY_REJECT";
+  reason:
+    | "EXPIRED"
+    | "COLD_CHAIN_BREACH"
+    | "PHYSICAL_DAMAGE"
+    | "QUALITY_REJECT";
   logged_by: number;
   created_at: string;
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowUpRight, Crown } from "lucide-react";
-import { RestaurantClient } from "@/types/dashboard";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import type { RestaurantClient } from "@/types/dashboard";
 
 interface RestaurantClientsProps {
   clients: RestaurantClient[];
@@ -99,7 +99,7 @@ export function RestaurantClients({ clients }: RestaurantClientsProps) {
                   "text-xs font-semibold tabular-nums mt-0.5",
                   client.isPositive
                     ? "text-emerald-600 dark:text-emerald-400"
-                    : "text-rose-600 dark:text-rose-400"
+                    : "text-rose-600 dark:text-rose-400",
                 )}
               >
                 {client.change}

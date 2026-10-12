@@ -1,0 +1,112 @@
+# ==============================================================================
+# FreshFlow ERP — Repository Labels Specification
+# Synchronized automatically by .github/workflows/labels.yml
+# ==============================================================================
+
+# ─── Types / Categories ────────────────────────────────────────────────────────
+- name: "type: bug"
+  color: "#d73a4a"
+  description: "Something is not working as expected"
+
+- name: "type: feature"
+  color: "#1d76db"
+  description: "New feature or business functionality"
+
+- name: "type: enhancement"
+  color: "#5319e7"
+  description: "Improvements or polish to an existing feature"
+
+- name: "type: documentation"
+  color: "#0075ca"
+  description: "Documentation additions, guides, or docstrings"
+
+- name: "type: refactor"
+  color: "#fbca04"
+  description: "Code restructuring without changing external behavior"
+
+- name: "type: performance"
+  color: "#d93f0b"
+  description: "Performance optimizations and latency improvements"
+
+- name: "type: test"
+  color: "#bfdadc"
+  description: "Unit, integration, or end-to-end tests"
+
+- name: "type: chore"
+  color: "#c5def5"
+  description: "Tooling, configs, build scripts, or repository housekeeping"
+
+- name: "type: security"
+  color: "#b60205"
+  description: "Security vulnerability fix, audit, or hardening"
+
+- name: "type: dependencies"
+  color: "#0366d6"
+  description: "Package dependency upgrades or additions"
+
+# ─── Area / Component ──────────────────────────────────────────────────────────
+- name: "area: frontend"
+  color: "#61dafb"
+  description: "Next.js frontend, React components, Tailwind styling"
+
+- name: "area: backend"
+  color: "#092e20"
+  description: "Django backend, REST framework, business logic"
+
+- name: "area: database"
+  color: "#336791"
+  description: "Turso / libSQL, SQLite, models, and migrations"
+
+- name: "area: auth"
+  color: "#8b5cf6"
+  description: "Authentication, SimpleJWT, user accounts, and permissions"
+
+- name: "area: ci/cd"
+  color: "#24292e"
+  description: "GitHub Actions workflows, linting, and CI pipelines"
+
+- name: "area: ui/ux"
+  color: "#e99695"
+  description: "Design system tokens, themes, layout, and visual UX"
+
+# ─── Priority ──────────────────────────────────────────────────────────────────
+- name: "priority: critical"
+  color: "#b60205"
+  description: "Critical bug or blocker requiring immediate resolution"
+
+- name: "priority: high"
+  color: "#d93f0b"
+  description: "High priority task to be addressed in current cycle"
+
+- name: "priority: medium"
+  color: "#fbca04"
+  description: "Standard priority scheduled work"
+
+- name: "priority: low"
+  color: "#0e8a16"
+  description: "Low priority or nice-to-have improvement"
+
+# ─── Status / Lifecycle ────────────────────────────────────────────────────────
+- name: "status: in-progress"
+  color: "#fbca04"
+  description: "Work is actively in progress"
+
+- name: "status: review-needed"
+  color: "#f9d0c4"
+  description: "Awaiting review or feedback from maintainers"
+
+- name: "status: blocked"
+  color: "#b60205"
+  description: "Blocked by an upstream dependency or unresolved question"
+
+- name: "status: ready-to-merge"
+  color: "#0e8a16"
+  description: "Approved, CI green, and ready to be merged"
+
+- name: "status: wontfix"
+  color: "#ffffff"
+  description: "Will not be worked on or resolved"
+
+- name: "status: duplicate"
+  color: "#cfd3d7"
+  description: "This issue or pull request already exists elsewhere"
