@@ -19,6 +19,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             "username": self.user.username,
             "email": self.user.email,
             "role": self.user.role,
+            "first_name": self.user.first_name,
+            "last_name": self.user.last_name,
         }
         if hasattr(self.user, "restaurant"):
             user_data["restaurant_id"] = self.user.restaurant.id
