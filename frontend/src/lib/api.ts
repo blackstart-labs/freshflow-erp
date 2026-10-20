@@ -94,6 +94,7 @@ api.interceptors.response.use(
 
         const newAccessToken = response.data.access;
         localStorage.setItem("freshflow_access_token", newAccessToken);
+        document.cookie = `freshflow_session=${newAccessToken}; path=/; max-age=1800; SameSite=Lax`;
 
         if (response.data.refresh) {
           localStorage.setItem(
@@ -113,6 +114,7 @@ api.interceptors.response.use(
         localStorage.removeItem("freshflow_access_token");
         localStorage.removeItem("freshflow_refresh_token");
         localStorage.removeItem("freshflow_user");
+        document.cookie = "freshflow_session=; path=/; max-age=0; SameSite=Lax";
         window.location.href = "/login";
         return Promise.reject(refreshError);
       } finally {

@@ -14,6 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+import { AuthProvider } from "@/context/auth-context";
+
 export const metadata: Metadata = {
   title: "FreshFlow ERP",
   description: "Cold Chain Inventory & Restaurant Supply CRM",
@@ -52,7 +54,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans bg-[#f8fafc] text-slate-900 antialiased dark:bg-[#070c0a] dark:text-[#f0fdf4]">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
