@@ -87,7 +87,17 @@ WSGI_APPLICATION = "core.wsgi.application"
 TURSO_DATABASE_URL = os.getenv("TURSO_DATABASE_URL")
 TURSO_AUTH_TOKEN = os.getenv("TURSO_AUTH_TOKEN", "")
 
-if TURSO_DATABASE_URL:
+if "test" in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+            "OPTIONS": {
+                "timeout": 20,
+            },
+        }
+    }
+elif TURSO_DATABASE_URL:
     DATABASES = {
         "default": {
             "ENGINE": "django_libsql",
@@ -190,5 +200,5 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "apps.authentication.serializers.CustomTokenObtainPairSerializer",
 }
