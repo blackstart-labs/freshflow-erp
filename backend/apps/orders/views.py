@@ -7,6 +7,11 @@ from .serializers import OrderCreateSerializer, OrderSerializer
 from .services import InsufficientStockError, OrderAllocationService
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -52,6 +57,14 @@ class OrderViewSet(viewsets.ModelViewSet):
             output_serializer = OrderSerializer(order)
             return Response(output_serializer.data, status=status.HTTP_201_CREATED)
         except InsufficientStockError as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            logger.warning("Order allocation failed due to insufficient stock: %s", e)
+            return Response(
+                {"error": "Insufficient stock available to satisfy the requested order quantity."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         except ValueError as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            logger.warning("Order allocation failed due to invalid input: %s", e)
+            return Response(
+                {"error": "Invalid order data provided. Please verify items and quantities."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
