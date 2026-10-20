@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.http import JsonResponse
-from django.urls import path
+from django.urls import include, path
 from rest_framework_simplejwt.views import (
     TokenBlacklistView,
     TokenObtainPairView,
@@ -15,7 +15,17 @@ def health_check(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/health/", health_check, name="health-check"),
-    path("api/auth/token/", TokenObtainPairView.as_view(), name="token-obtain"),
-    path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
-    path("api/auth/token/blacklist/", TokenBlacklistView.as_view(), name="token-blacklist"),
+
+    # JWT Authentication Endpoints (SimpleJWT with Token Blacklisting)
+    path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/auth/token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
+
+    # FreshFlow Domain Module Routes
+    path("api/auth/", include("apps.authentication.urls")),
+    path("api/inventory/", include("apps.inventory.urls")),
+    path("api/crm/", include("apps.crm.urls")),
+    path("api/orders/", include("apps.orders.urls")),
+    path("api/wastage/", include("apps.wastage.urls")),
+    path("api/analytics/", include("apps.analytics.urls")),
 ]
