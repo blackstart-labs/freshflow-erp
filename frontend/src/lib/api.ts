@@ -60,11 +60,23 @@ api.interceptors.response.use(
         return Promise.reject(error);
       }
 
+      // Do not intercept or reload for login or registration requests
+      const reqUrl = originalRequest.url || "";
+      if (
+        reqUrl.includes("/auth/token/") ||
+        reqUrl.includes("/auth/register/")
+      ) {
+        return Promise.reject(error);
+      }
+
       const refreshToken = localStorage.getItem("freshflow_refresh_token");
       if (!refreshToken) {
         localStorage.removeItem("freshflow_access_token");
         localStorage.removeItem("freshflow_user");
-        window.location.href = "/login";
+        document.cookie = "freshflow_session=; path=/; max-age=0; SameSite=Lax";
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
         return Promise.reject(error);
       }
 
@@ -115,7 +127,9 @@ api.interceptors.response.use(
         localStorage.removeItem("freshflow_refresh_token");
         localStorage.removeItem("freshflow_user");
         document.cookie = "freshflow_session=; path=/; max-age=0; SameSite=Lax";
-        window.location.href = "/login";
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

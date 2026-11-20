@@ -211,14 +211,21 @@ if [ "$RECREATE_VENV" = true ]; then
     "$PYTHON_CMD" -m venv "${VENV_DIR}"
 fi
 
+# Explicitly activate virtualenv & put its binaries first in PATH
+VIRTUAL_ENV="${VENV_DIR}"
+export VIRTUAL_ENV
+PATH="${VENV_DIR}/bin:${PATH}"
+export PATH
 # shellcheck source=/dev/null
 source "${VENV_DIR}/bin/activate"
 
+echo -e "${GREEN}✓ Virtual environment activated: ${VENV_DIR} ($("${VENV_DIR}/bin/python" --version))${NC}"
+
 # Ensure pip is up to date and dependencies are installed
-if ! python -c "import django, rest_framework, rest_framework_simplejwt, corsheaders" &>/dev/null; then
+if ! "${VENV_DIR}/bin/python" -c "import django, rest_framework, rest_framework_simplejwt, corsheaders" &>/dev/null; then
     echo -e "${YELLOW}Installing backend dependencies from requirements.txt...${NC}"
-    pip install --upgrade pip
-    pip install -r "${BACKEND_DIR}/requirements.txt"
+    "${VENV_DIR}/bin/pip" install --upgrade pip
+    "${VENV_DIR}/bin/pip" install -r "${BACKEND_DIR}/requirements.txt"
 fi
 
 # Ensure backend .env exists
@@ -239,7 +246,11 @@ fi
 
 # Apply database migrations
 echo -e "${BLUE}Applying backend database migrations...${NC}"
-python "${BACKEND_DIR}/manage.py" migrate --noinput
+"${VENV_DIR}/bin/python" "${BACKEND_DIR}/manage.py" migrate --noinput
+
+# Seed demo workforce accounts and perishable catalog
+echo -e "${BLUE}Ensuring demo accounts and inventory are seeded...${NC}"
+"${VENV_DIR}/bin/python" "${BACKEND_DIR}/manage.py" seed_employees
 
 # Ensure media directory exists
 mkdir -p "${BACKEND_DIR}/media/profile_pictures"
@@ -302,7 +313,7 @@ trap cleanup SIGINT SIGTERM EXIT
 
 # Start Django Backend on 0.0.0.0:8005 (allow VPS IP access)
 export ALLOWED_HOSTS="${ALLOWED_HOSTS:-*},localhost,127.0.0.1,${HOST_IP}"
-python "${BACKEND_DIR}/manage.py" runserver 0.0.0.0:8005 2>&1 | sed -e "s/^/[BACKEND] /" &
+"${VENV_DIR}/bin/python" "${BACKEND_DIR}/manage.py" runserver 0.0.0.0:8005 2>&1 | sed -e "s/^/[BACKEND] /" &
 BACKEND_PID=$!
 
 # Start Next.js Frontend bound to 0.0.0.0:3000

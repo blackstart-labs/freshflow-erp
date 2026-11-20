@@ -27,7 +27,10 @@ load_dotenv(BASE_DIR / ".env")
 # ─── Security ────────────────────────────────────────────────────────────────
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback-CHANGE-ME")
 DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver,0.0.0.0")
+ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
+if DEBUG and "*" not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append("*")
 
 # ─── Application Registry ───────────────────────────────────────────────────
 INSTALLED_APPS = [
