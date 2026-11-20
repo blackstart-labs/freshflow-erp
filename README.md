@@ -202,17 +202,3 @@ cd frontend
 npm run typecheck
 npm run lint
 ```
-
----
-
-## Documentation Index
-
-- **[docs/AUTHENTICATION.md](docs/AUTHENTICATION.md):** Complete technical architecture, sequence diagrams, security invariants, and API payload definitions.
-- **[qna/AUTHENTICATION_QNA.md](qna/AUTHENTICATION_QNA.md):** Comprehensive defense preparation covering 13 sections of supervisor and panel questions.
-- **[docs/deliverables.txt](docs/deliverables.txt):** Full technical roadmap and algorithmic specifications for FEFO allocation and dynamic pricing.
-
----
-
-## License
-
-This project is licensed under the MIT License.

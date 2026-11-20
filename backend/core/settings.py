@@ -27,7 +27,10 @@ load_dotenv(BASE_DIR / ".env")
 # ─── Security ────────────────────────────────────────────────────────────────
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback-CHANGE-ME")
 DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver,0.0.0.0")
+ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
+if DEBUG and "*" not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append("*")
 
 # ─── Application Registry ───────────────────────────────────────────────────
 INSTALLED_APPS = [
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
     "apps.orders",
     "apps.wastage",
     "apps.analytics",
+    "apps.employees",
 ]
 
 # ─── Middleware ───────────────────────────────────────────────────────────────
@@ -86,6 +90,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 # ─── Database — SQLite or Turso (libSQL) ────────────────────────────────────
 TURSO_DATABASE_URL = os.getenv("TURSO_DATABASE_URL")
 TURSO_AUTH_TOKEN = os.getenv("TURSO_AUTH_TOKEN", "")
+USE_TURSO = os.getenv("USE_TURSO", "False").lower() in ("true", "1", "yes")
 
 if "test" in sys.argv:
     DATABASES = {
@@ -97,7 +102,7 @@ if "test" in sys.argv:
             },
         }
     }
-elif TURSO_DATABASE_URL:
+elif USE_TURSO and TURSO_DATABASE_URL:
     DATABASES = {
         "default": {
             "ENGINE": "django_libsql",
@@ -156,6 +161,10 @@ USE_TZ = True
 # ─── Static Files ───────────────────────────────────────────────────────────
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# ─── Media Files (Profile Pictures & Uploads) ───────────────────────────────
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

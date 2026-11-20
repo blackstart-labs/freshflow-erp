@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Crown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { RestaurantClient } from "@/types/dashboard";
 
@@ -43,13 +44,16 @@ export function RestaurantClients({ clients }: RestaurantClientsProps) {
     <div className="rounded-lg border border-slate-200/80 bg-white p-4 shadow-xs dark:border-[#1b2b24] dark:bg-[#0e1512] flex flex-col justify-between transition-colors duration-200">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#1b2b24]">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-          Top Restaurant Clients
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+          Top restaurant clients
         </h3>
-        <button className="flex items-center gap-0.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors">
+        <Link
+          href="/clients"
+          className="flex items-center gap-0.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors"
+        >
           <span>View All</span>
           <ArrowUpRight size={14} />
-        </button>
+        </Link>
       </div>
 
       {/* Ranked Clients List */}

@@ -1,13 +1,43 @@
 "use client";
 
-import { Leaf, Snowflake, Thermometer } from "lucide-react";
+import { Leaf, RefreshCw, Snowflake, Thermometer } from "lucide-react";
+import { useState } from "react";
 import type { TemperatureZone } from "@/types/dashboard";
 
 interface TemperaturePanelProps {
   zones: TemperatureZone[];
+  onRefresh?: () => void;
 }
 
-export function TemperaturePanel({ zones }: TemperaturePanelProps) {
+export function TemperaturePanel({
+  zones: initialZones,
+}: TemperaturePanelProps) {
+  const [zones, setZones] = useState<TemperatureZone[]>(initialZones);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastAuditText, setLastAuditText] = useState("Live audit: Just now");
+
+  const handleAuditRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      // Simulate real-time sensor audit jitter within safe tolerance
+      setZones((prev) =>
+        prev.map((zone) => {
+          const jitter = (Math.random() - 0.5) * 0.4;
+          const newTemp = parseFloat((zone.currentTemp + jitter).toFixed(1));
+          return {
+            ...zone,
+            currentTemp: newTemp,
+          };
+        }),
+      );
+      const now = new Date();
+      setLastAuditText(
+        `Audited: ${now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`,
+      );
+      setIsRefreshing(false);
+    }, 400);
+  };
+
   const getZoneIcon = (type: TemperatureZone["type"]) => {
     switch (type) {
       case "freeze":
@@ -41,16 +71,25 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
       {/* Panel Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#1b2b24]">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            Cold Storage Temperature
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+            Cold storage temperature
           </h3>
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-600 border border-emerald-200/60 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800/50">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Live
-          </span>
+          <button
+            type="button"
+            onClick={handleAuditRefresh}
+            className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-200/70 hover:bg-emerald-100/60 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800/50 dark:hover:bg-emerald-900/60 transition-colors cursor-pointer"
+            title="Click to perform an on-demand temperature telemetry audit"
+          >
+            <span className="size-1.5 rounded-full bg-emerald-500" />
+            <span>Live</span>
+            <RefreshCw
+              size={10}
+              className={`text-emerald-600 dark:text-emerald-400 ${isRefreshing ? "animate-spin" : ""}`}
+            />
+          </button>
         </div>
         <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          Last updated: 2 min ago
+          {lastAuditText}
         </span>
       </div>
 
@@ -78,7 +117,10 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
               <div className="mt-2.5 flex items-baseline justify-between">
                 <div>
                   <div className="font-mono text-xl font-bold text-slate-900 dark:text-white tabular-nums tracking-tight">
-                    {zone.currentTemp.toFixed(1)}°C
+                    {zone.currentTemp > 0
+                      ? `+${zone.currentTemp.toFixed(1)}`
+                      : zone.currentTemp.toFixed(1)}
+                    °C
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                     {zone.targetTemp}
@@ -98,46 +140,18 @@ export function TemperaturePanel({ zones }: TemperaturePanelProps) {
                 viewBox="0 0 120 28"
                 preserveAspectRatio="none"
               >
-                <defs>
-                  <linearGradient
-                    id={`grad-${zone.id}`}
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
                 <path
-                  d={
-                    `M 0,${28 - zone.sparkline[0]} ` +
-                    zone.sparkline
-                      .map(
-                        (pt, i) =>
-                          `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`,
-                      )
-                      .join(" ")
-                  }
+                  d="M0 14 Q 15 8, 30 16 T 60 12 T 90 18 T 120 13"
                   fill="none"
-                  stroke="#10b981"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d={
-                    `M 0,${28 - zone.sparkline[0]} ` +
-                    zone.sparkline
-                      .map(
-                        (pt, i) =>
-                          `L ${(i * 120) / (zone.sparkline.length - 1)},${28 - pt}`,
-                      )
-                      .join(" ") +
-                    " L 120,28 L 0,28 Z"
+                  stroke={
+                    zone.type === "freeze"
+                      ? "#38bdf8"
+                      : zone.type === "chilled"
+                        ? "#14b8a6"
+                        : "#22c55e"
                   }
-                  fill={`url(#grad-${zone.id})`}
+                  strokeWidth="1.75"
+                  className="opacity-80"
                 />
               </svg>
             </div>

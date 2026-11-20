@@ -12,21 +12,19 @@ export function ExpiryTimeline({ data }: ExpiryTimelineProps) {
   const getBarColor = (item: ExpiryDay) => {
     switch (item.date) {
       case "17 Dec":
-        return "#10b981"; // emerald
       case "18 Dec":
-        return "#34d399"; // light mint green
+        return "#059669"; // calm emerald (safe)
       case "19 Dec":
-        return "#fbbf24"; // golden amber
+        return "#0284c7"; // chilled blue (moderate)
       case "20 Dec":
-        return "#f87171"; // coral red
+        return "#dc2626"; // critical alert (expiry horizon)
       case "21 Dec":
-        return "#fb7185"; // rose
+        return "#d97706"; // amber warning
       case "22 Dec":
-        return "#ef4444"; // red
       case "23 Dec":
-        return "#dc2626"; // deep red
+        return "#dc2626"; // critical
       default:
-        return "#10b981";
+        return "#059669";
     }
   };
 
@@ -34,8 +32,8 @@ export function ExpiryTimeline({ data }: ExpiryTimelineProps) {
     <div className="rounded-lg border border-slate-200/80 bg-white p-4 shadow-xs dark:border-[#1b2b24] dark:bg-[#0e1512] flex flex-col justify-between transition-colors duration-200">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#1b2b24]">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-          Expiry Timeline (Next 7 Days)
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+          Expiry timeline (next 7 days)
         </h3>
         <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Dec 17 – Dec 23
