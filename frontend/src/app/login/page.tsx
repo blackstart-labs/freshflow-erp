@@ -30,10 +30,9 @@ const DEMO_ACCOUNTS = [
     password: "Password123!",
     description: "Full system control",
     icon: Shield,
-    iconBg:
-      "bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400",
+    iconBg: "bg-slate-100 text-slate-700 dark:bg-[#15231c] dark:text-slate-300",
     pillBg:
-      "bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-950/60 dark:border-purple-800/60 dark:text-purple-300",
+      "bg-slate-50 border-slate-200 text-slate-700 dark:bg-[#121c17] dark:border-[#1d352b] dark:text-slate-300",
   },
   {
     role: "Warehouse Manager",
@@ -42,9 +41,9 @@ const DEMO_ACCOUNTS = [
     description: "FEFO & stock intake",
     icon: Package,
     iconBg:
-      "bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400",
+      "bg-emerald-100 text-[#086355] dark:bg-emerald-950 dark:text-[#34d399]",
     pillBg:
-      "bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-800/60 dark:text-emerald-300",
+      "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950/60 dark:border-emerald-800/60 dark:text-emerald-300",
   },
   {
     role: "Sales Agent",
@@ -52,9 +51,9 @@ const DEMO_ACCOUNTS = [
     password: "Password123!",
     description: "CRM & orders",
     icon: Users,
-    iconBg: "bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400",
+    iconBg: "bg-teal-50 text-teal-700 dark:bg-teal-950/60 dark:text-teal-300",
     pillBg:
-      "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-950/60 dark:border-blue-800/60 dark:text-blue-300",
+      "bg-teal-50/70 border-teal-200 text-teal-800 dark:bg-teal-950/40 dark:border-teal-800/40 dark:text-teal-300",
   },
   {
     role: "Restaurant Client",
@@ -62,9 +61,10 @@ const DEMO_ACCOUNTS = [
     password: "StrongPassword123!",
     description: "Ordering portal",
     icon: Utensils,
-    iconBg: "bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400",
+    iconBg:
+      "bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
     pillBg:
-      "bg-amber-50 border-amber-200 text-amber-700 dark:bg-amber-950/60 dark:border-amber-800/60 dark:text-amber-300",
+      "bg-amber-50/70 border-amber-200 text-amber-800 dark:bg-amber-950/40 dark:border-amber-800/40 dark:text-amber-300",
   },
 ];
 
@@ -171,7 +171,7 @@ export default function LoginPage() {
             <div className="w-12 h-0.5 bg-emerald-400/80 rounded-full my-7" />
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.12]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.12]">
               Fresh supply.
               <br />
               Less waste.
@@ -247,7 +247,7 @@ export default function LoginPage() {
 
           {/* Bottom Testimonial Pill */}
           <div className="mt-8 pt-4">
-            <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-xl bg-[#05332c]/75 backdrop-blur-md border border-emerald-500/20 max-w-sm">
+            <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-xl bg-[#05332c]/85 border border-emerald-500/20 max-w-sm">
               <div className="size-7 rounded-full bg-emerald-500/20 flex items-center justify-center text-[#34d399] shrink-0">
                 <Leaf size={14} />
               </div>
@@ -278,7 +278,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md mx-auto my-auto py-2">
           {/* Header */}
           <div className="mb-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
               Welcome back
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -288,7 +288,7 @@ export default function LoginPage() {
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="mb-5 flex items-start gap-2.5 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs dark:bg-rose-950/30 dark:border-rose-900/50 dark:text-rose-400 animate-fade-in-up">
+            <div className="mb-5 flex items-start gap-2.5 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs dark:bg-rose-950/30 dark:border-rose-900/50 dark:text-rose-400">
               <AlertCircle size={15} className="shrink-0 mt-0.5" />
               <div className="font-medium leading-relaxed">{errorMessage}</div>
             </div>
@@ -409,8 +409,8 @@ export default function LoginPage() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-200 dark:border-[#1b2b24]" />
             </div>
-            <span className="relative bg-white dark:bg-[#070c0a] px-3 text-[11px] font-mono text-slate-400 uppercase">
-              OR
+            <span className="relative bg-white dark:bg-[#070c0a] px-3 text-xs text-slate-400 font-medium">
+              or
             </span>
           </div>
 
@@ -438,7 +438,7 @@ export default function LoginPage() {
                     key={acc.role}
                     type="button"
                     onClick={() => handleQuickFill(acc.username, acc.password)}
-                    className="w-full flex items-center justify-between p-2 rounded-lg bg-white/90 hover:bg-white dark:bg-[#0d1c16] dark:hover:bg-[#12241d] border border-slate-200/70 dark:border-[#1d352b] transition-all hover:shadow-xs active:scale-[0.99] cursor-pointer text-left group"
+                    className="w-full flex items-center justify-between p-2 rounded-lg bg-white/90 hover:bg-white dark:bg-[#0d1c16] dark:hover:bg-[#12241d] border border-slate-200/70 dark:border-[#1d352b] transition-colors cursor-pointer text-left group"
                     title={`Click to fill ${acc.role} credentials`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
